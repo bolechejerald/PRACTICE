@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User Persona — Daryl Tiongson</title>
+<style>
+  @page { size: A4; margin: 0; }
+
+  :root{
+    --paper: #faf7f0;
+    --ink: #20302a;
+    --ink-soft: #4b5850;
+    --line: #ddd6c7;
+    --clay: #b8722e;
+    --clay-soft: #f1e2d1;
+    --clay-deep: #8f5620;
+    --sage: #4c6b5c;
+    --sage-soft: #e7ede9;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:#e7e3d8; }
+
+  .sheet{
+    width: 210mm;
+    min-height: 297mm;
+    margin: 8mm auto;
+    background: var(--paper);
+    box-shadow: 0 2px 18px rgba(0,0,0,0.16);
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* faint eye-chart style watermark, ties to the visual-impairment subject */
+  .watermark{
+    position:absolute;
+    top: -18mm; right: -22mm;
+    width: 110mm; height: 110mm;
+    opacity: 0.05;
+    pointer-events:none;
+  }
+
+  /* ---- header band, full bleed ---- */
+  .masthead{
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12mm 16mm 10mm 16mm;
+    position: relative;
+    z-index:1;
+  }
+  .masthead .file-no{
+    font-size: 8.5px;
+    letter-spacing: 2px;
+    color: #a9bab1;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom: 8mm;
+  }
+
+  .id-row{
+    display:flex;
+    align-items:center;
+    gap: 6mm;
+  }
+  .initial{
+    width: 24mm; height: 24mm;
+    border: 2px solid var(--clay);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 21px;
+    flex-shrink:0;
+    background: #26362f;
+    color: var(--paper);
+    overflow: hidden;
+  }
+  .initial img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    display: block;
+  }
+  .id-text h1{
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 30px;
+    margin: 0 0 2mm 0;
+    letter-spacing: 0.3px;
+  }
+  .id-text .meta{
+    font-size: 9.5px;
+    color: #c3d0c9;
+  }
+  .id-text .meta span{ margin-right: 4mm; }
+  .id-text .meta span.tag{
+    background: var(--clay);
+    color: #2a1808;
+    padding: 0.8mm 2.5mm;
+    border-radius: 2mm;
+    font-weight: 600;
+  }
+
+  .body-pad{
+    padding: 9mm 16mm 12mm 16mm;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---- intro line ---- */
+  .intro{
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 155mm;
+    margin: 0 0 7mm 0;
+    color: var(--ink);
+  }
+  .intro em{
+    font-style: normal;
+    background: linear-gradient(transparent 62%, var(--clay-soft) 62%);
+    padding: 0 0.5mm;
+  }
+
+  /* ---- stat row ---- */
+  .stat-row{
+    display:flex;
+    background: var(--sage-soft);
+    border: 1px solid var(--sage);
+    border-radius: 1.5mm;
+    padding: 5mm 0;
+    margin-bottom: 8mm;
+  }
+  .stat{
+    flex:1;
+    padding: 0 5mm;
+    border-left: 1px dashed #9fb5a9;
+    text-align: center;
+  }
+  .stat:first-child{ border-left: none; }
+  .stat .num{
+    font-family: Georgia, serif;
+    font-size: 22px;
+    color: var(--sage);
+    line-height:1;
+  }
+  .stat .lbl{
+    font-size: 7.6px;
+    letter-spacing: 0.5px;
+    color: var(--ink-soft);
+    margin-top: 2mm;
+  }
+
+  /* ---- section label ---- */
+  .section-label{
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--clay-deep);
+    margin: 0 0 3mm 0;
+    display:flex;
+    align-items:baseline;
+    gap: 2.5mm;
+  }
+  .section-label::before{
+    content:"";
+    width: 3mm; height: 3mm;
+    border-radius: 50%;
+    background: var(--clay);
+    flex-shrink:0;
+  }
+  .section-label::after{
+    content:"";
+    flex:1;
+    border-bottom: 1px solid var(--line);
+    transform: translateY(-2px);
+  }
+
+  p.body-text{
+    font-size: 9.7px;
+    line-height: 1.7;
+    color: var(--ink);
+    margin: 0 0 7mm 0;
+    max-width: 165mm;
+  }
+  p.body-text b{ color: var(--clay-deep); font-weight:600; }
+
+  .two-col{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8mm;
+    margin-bottom: 8mm;
+  }
+
+  ul.dash{ margin:0; padding:0; list-style:none; }
+  ul.dash li{
+    font-size: 9px;
+    line-height: 1.65;
+    color: var(--ink);
+    padding-left: 5mm;
+    position:relative;
+    margin-bottom: 2.3mm;
+  }
+  ul.dash li::before{
+    content:"—";
+    position:absolute;
+    left:0;
+    color: var(--sage);
+  }
+
+  /* ---- tab cards ---- */
+  .tab-card{
+    position:relative;
+    border: 1.5px solid var(--ink);
+    border-radius: 1.5mm;
+    padding: 5.5mm 5mm 4mm 5mm;
+    margin-top: 4mm;
+    background: #fffdf8;
+  }
+  .tab-card .tab{
+    position:absolute;
+    top: -4.2mm;
+    left: 5mm;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 8px;
+    letter-spacing: 0.5px;
+    padding: 1.2mm 3.5mm;
+    border-radius: 1mm;
+  }
+  .tab-card.clay{ border-color: var(--clay); }
+  .tab-card.clay .tab{ background: var(--clay-deep); }
+  .tab-card ol{ margin: 2mm 0 0 0; padding-left: 4mm; }
+  .tab-card ol li{
+    font-size: 9px;
+    line-height: 1.7;
+    margin-bottom: 1.8mm;
+  }
+
+  /* ---- pull quote with decorative mark, vision-themed ---- */
+  .quote-block{
+    position: relative;
+    background: var(--clay-soft);
+    border-radius: 2mm;
+    padding: 7mm 8mm 6mm 14mm;
+    margin-bottom: 8mm;
+    overflow: hidden;
+  }
+  .quote-block::before{
+    content: "“";
+    position:absolute;
+    top: -6mm; left: 1mm;
+    font-family: Georgia, serif;
+    font-size: 60px;
+    color: rgba(184,114,46,0.35);
+    line-height:1;
+  }
+  .quote-block p.qtext{
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 11.5px;
+    line-height: 1.65;
+    margin: 0 0 2mm 0;
+    color: var(--ink);
+    position: relative;
+  }
+  .quote-block .attr{
+    font-size: 8px;
+    letter-spacing: 0.5px;
+    color: var(--clay-deep);
+    font-weight: 600;
+  }
+
+  .need-strip{
+    display:flex;
+    align-items:center;
+    gap: 4mm;
+    background: var(--sage);
+    color: var(--paper);
+    border-radius: 1.5mm;
+    padding: 4.5mm 5.5mm;
+    margin-bottom: 8mm;
+  }
+  .need-strip .mark{
+    font-size: 18px;
+    flex-shrink:0;
+  }
+  .need-strip p{
+    font-size: 9px;
+    line-height: 1.6;
+    margin:0;
+    color: #eef5f1;
+  }
+  .need-strip b{ color: #fff; }
+
+  .footer-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3mm;
+  }
+  .footer-grid .box{
+    border: 1px solid var(--line);
+    border-radius: 1.5mm;
+    padding: 3.5mm;
+    background: #fffdf8;
+  }
+  .footer-grid .t{
+    font-size: 7.7px;
+    font-weight:700;
+    color: var(--clay-deep);
+    margin-bottom: 1mm;
+  }
+  .footer-grid .d{
+    font-size: 7.3px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <svg class="watermark" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="95" fill="none" stroke="#20302a" stroke-width="1.5"/>
+    <circle cx="100" cy="100" r="70" fill="none" stroke="#20302a" stroke-width="1.5"/>
+    <circle cx="100" cy="100" r="45" fill="none" stroke="#20302a" stroke-width="1.5"/>
+    <circle cx="100" cy="100" r="20" fill="#20302a"/>
+    <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="#20302a" stroke-width="1.5"/>
+    <path d="M20,100 A80,80 0 0,0 180,100" fill="none" stroke="#20302a" stroke-width="1.5"/>
+  </svg>
+
+  <div class="masthead">
+    <div class="file-no">
+      <span>USER PERSONA — FILE 02 / ACCESSIBILITY RESEARCH</span>
+      <span>PREPARED SEPTEMBER 2026</span>
+    </div>
+    <div class="id-row">
+      <div class="initial"><img src="daryl.jfif" alt="Daryl Tiongson"></div>
+      <div class="id-text">
+        <h1>Daryl Tiongson</h1>
+        <div class="meta">
+          <span>22 years old</span>
+          <span>Bunawan, Davao City</span>
+          <span class="tag">3rd Year College Student</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="body-pad">
+
+    <p class="intro">A student who wants her phone and laptop to keep up with her — without <em>fighting the screen</em> to get there.</p>
+
+    <div class="stat-row">
+      <div class="stat"><div class="num">6/6</div><div class="lbl">SMARTPHONE USE</div></div>
+      <div class="stat"><div class="num">6/6</div><div class="lbl">ONLINE LEARNING</div></div>
+      <div class="stat"><div class="num">5/6</div><div class="lbl">STREAMING &amp; SOCIAL</div></div>
+      <div class="stat"><div class="num">3/6</div><div class="lbl">ONLINE SHOPPING</div></div>
+    </div>
+
+    <div class="section-label">ABOUT DARYL</div>
+    <p class="body-text">Daryl relies on her <b>smartphone</b> for entertainment, staying connected with friends, and club work, and her <b>laptop</b> for school requirements, technology-assisted learning, and research. A visual impairment means long screen sessions without her glasses bring on digital eye strain, so she leans on <b>high-contrast display settings</b> and clearly organized layouts to keep using her devices comfortably.</p>
+
+    <div class="need-strip">
+      <div class="mark">&#128065;</div>
+      <p><b>Accessibility need:</b> Visual impairment — benefits from high-contrast display, medium-sized tap targets, and plain, step-by-step instructions.</p>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">WANTS &amp; NEEDS</div>
+        <ul class="dash">
+          <li>High-contrast mode for comfortable reading over long sessions.</li>
+          <li>Medium-sized buttons that are easy to tap accurately.</li>
+          <li>Well-organized themes and image/text combinations.</li>
+          <li>Simple, step-by-step instructions on forms and sign-ups.</li>
+          <li>Detailed layouts are fine, as long as they're organized.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label">WHERE SHE SPENDS TIME</div>
+        <ul class="dash">
+          <li>TikTok, Netflix, Messenger, and X for daily connection.</li>
+          <li>Online reading and fan communities in her downtime.</li>
+          <li>Stepped away from a paid-per-chapter reading app.</li>
+          <li>Google Forms for school — when instructions are clear.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="tab-card clay">
+        <div class="tab">FRUSTRATIONS</div>
+        <ol>
+          <li>Digital eye strain after long use without glasses.</li>
+          <li>Unclear or cluttered instructions, especially in forms.</li>
+          <li>Apps that gate content behind per-chapter payments.</li>
+          <li>Account recovery stalling with no one able to help.</li>
+        </ol>
+      </div>
+      <div class="tab-card">
+        <div class="tab">GOALS &amp; MOTIVATION</div>
+        <ol>
+          <li>Finish school requirements independently.</li>
+          <li>Resolve her own account issues without depending on unreachable support.</li>
+          <li>Feel confident in new apps because instructions are clear.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <p class="qtext">Small text and low-contrast screens are the hardest part. After a while without my glasses, letters start to blur together and my eyes get tired fast — I end up zooming in or squinting just to read a simple caption.</p>
+      <div class="attr">— DARYL, ON READING WITH A VISUAL IMPAIRMENT</div>
+    </div>
+
+    <div class="section-label">ACCESSIBILITY CONSIDERATIONS</div>
+    <div class="footer-grid">
+      <div class="box">
+        <div class="t">Contrast &amp; Text</div>
+        <div class="d">High-contrast themes, adjustable font sizes.</div>
+      </div>
+      <div class="box">
+        <div class="t">Clear Instructions</div>
+        <div class="d">Short, explicit steps, no unexplained jargon.</div>
+      </div>
+      <div class="box">
+        <div class="t">Comfortable Controls</div>
+        <div class="d">Medium-to-large tap targets, uncluttered layout.</div>
+      </div>
+      <div class="box">
+        <div class="t">Reliable Support</div>
+        <div class="d">Reachable, accessible account-recovery options.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
